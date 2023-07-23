@@ -1,0 +1,217 @@
+
+	GET method
+
+pm.test("check OTC offers status is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+var response = pm.response.json();
+
+setBidPrice();
+setAskPrice();
+
+
+
+function setBidPrice() {
+    const filteredResponse = response.find(price => price.pair.pair == "ETH-GEL" )
+
+    if (!filteredResponse) return 
+
+    const bidRanges = filteredResponse.bidRanges
+
+    if (!bidRanges) return
+
+    const price = bidRanges.map(range => range.price);
+    var newlist = [...price]
+   
+
+    pm.collectionVariables.set("bidprice1", newlist[0]);
+    pm.collectionVariables.set("bidprice2", newlist[1]);
+    pm.collectionVariables.set("bidprice3", newlist[2]);
+    pm.collectionVariables.set("bidprice4", newlist[3]);
+    console.log(newlist)
+    
+}
+
+// console.log(response[5])
+
+function setAskPrice(){
+
+    const filterresponse = response.find(price => price.pair.pair == "ETH-GEL")
+
+    if (!filterresponse) return
+
+    const askRanges = filterresponse.askRanges
+    if (!askRanges) return
+
+    const price = askRanges.map(range => range.price);
+    var newlist = [...price]
+
+     pm.collectionVariables.set("askprice1", newlist[0]);
+    pm.collectionVariables.set("askprice2", newlist[1]);
+    pm.collectionVariables.set("askprice3", newlist[2]);
+    pm.collectionVariables.set("askprice4", newlist[3]);
+}
+
+
+
+// check pair keys 
+
+pm.test("check pair keys - pair", function () {
+    pm.expect(Object.keys(response[0].pair)[0]).to.eql("pair");
+});
+pm.test("check pair keys - baseCurrency", function () {
+    pm.expect(Object.keys(response[0].pair)[1]).to.eql("baseCurrency");
+});
+pm.test("check pair keys - baseCurrencyName", function () {
+    pm.expect(Object.keys(response[0].pair)[2]).to.eql("baseCurrencyName");
+});
+pm.test("check pair keys - baseScale", function () {
+    pm.expect(Object.keys(response[0].pair)[3]).to.eql("baseScale");
+});
+pm.test("check pair keys - quoteCurrency", function () {
+    pm.expect(Object.keys(response[0].pair)[4]).to.eql("quoteCurrency");
+});
+pm.test("check pair keys - quoteCurrencyName", function () {
+    pm.expect(Object.keys(response[0].pair)[5]).to.eql("quoteCurrencyName");
+});
+pm.test("check pair keys - quoteScale", function () {
+    pm.expect(Object.keys(response[0].pair)[6]).to.eql("quoteScale");
+});
+pm.test("check pair keys - minSize", function () {
+    pm.expect(Object.keys(response[0].pair)[7]).to.eql("minSize");
+});
+pm.test("check pair keys - minCost", function () {
+    pm.expect(Object.keys(response[0].pair)[8]).to.eql("minCost");
+});
+pm.test("check pair keys - maxSize", function () {
+    pm.expect(Object.keys(response[0].pair)[9]).to.eql("maxSize");
+});
+pm.test("check pair keys - maxPrice", function () {
+    pm.expect(Object.keys(response[0].pair)[10]).to.eql("maxPrice");
+});
+pm.test("check pair keys - minSimpleTradeSize", function () {
+    pm.expect(Object.keys(response[0].pair)[11]).to.eql("minSimpleTradeSize");
+});
+pm.test("check pair keys - minSimpleTradeCost", function () {
+    pm.expect(Object.keys(response[0].pair)[12]).to.eql("minSimpleTradeCost");
+});
+pm.test("check pair keys - takerFee", function () {
+    pm.expect(Object.keys(response[0].pair)[13]).to.eql("takerFee");
+});
+pm.test("check pair keys - makerFee", function () {
+    pm.expect(Object.keys(response[0].pair)[14]).to.eql("makerFee");
+});
+pm.test("check pair keys - orderTypes", function () {
+    pm.expect(Object.keys(response[0].pair)[15]).to.eql("orderTypes");
+});
+pm.test("check pair keys - tradeEnabled", function () {
+    pm.expect(Object.keys(response[0].pair)[16]).to.eql("tradeEnabled");
+});
+
+
+//    check bidRanges 
+
+
+
+
+
+pm.test("Your test name", function () {
+  pm.expect(response).to.be.a("array")
+});
+
+
+
+---------------------------------------
+
+//	POST method
+
+
+var response = pm.response.json();
+
+if(pm.response.code == 200){
+           
+           pm.test(" OTC trading  methods - BID success", ()=>{
+               pm.expect(1).equal(1)
+
+pm.test("check pair keys - id", function () {
+    pm.expect(Object.keys(response)[0]).to.eql("id");
+});
+pm.test("check pair keys - baseCurrency", function () {
+    pm.expect(Object.keys(response)[1]).to.eql("baseCurrency");
+});
+pm.test("check pair keys - quoteCurrency", function () {
+    pm.expect(Object.keys(response)[2]).to.eql("quoteCurrency");
+});
+pm.test("check pair keys - action", function () {
+    pm.expect(Object.keys(response)[3]).to.eql("action");
+});
+pm.test("check pair keys - type", function () {
+    pm.expect(Object.keys(response)[4]).to.eql("type");
+});
+pm.test("check pair keys - size", function () {
+    pm.expect(Object.keys(response)[5]).to.eql("size");
+});
+pm.test("check pair keys - price", function () {
+    pm.expect(Object.keys(response)[6]).to.eql("price");
+});
+pm.test("check pair keys - cumulativeCost", function () {
+    pm.expect(Object.keys(response)[7]).to.eql("cumulativeCost");
+});
+pm.test("check pair keys - status", function () {
+    pm.expect(Object.keys(response)[8]).to.eql("status");
+});
+pm.test("check pair keys - sendAddress", function () {
+    pm.expect(Object.keys(response)[9]).to.eql("sendAddress");
+});
+pm.test("check pair keys - userId", function () {
+    pm.expect(Object.keys(response)[10]).to.eql("userId");
+});
+pm.test("check pair keys - creationTime", function () {
+    pm.expect(Object.keys(response)[11]).to.eql("creationTime");
+});
+pm.test("check pair keys - creatorUserId", function () {
+    pm.expect(Object.keys(response)[12]).to.eql("creatorUserId");
+});
+pm.test("check pair keys - lastChangeTime", function () {
+    pm.expect(Object.keys(response)[13]).to.eql("lastChangeTime");
+});
+
+     })
+}else{
+   var response = pm.response.json(); 
+   if(response.errorMessage == "OTC trade price changed"){
+   pm.test.skip("OTC trade price changed " + " Your status code is: "+ pm.response.code + ", Your status is: "+ pm.response.status)
+   }
+   else{
+       pm.test("Failed test", function () {
+       let num = -1
+       if(num === -1) {
+           pm.expect.fail("Test is failed check status code" + " Your status code is: "+ pm.response.code + " Your status is : "+        pm.response.status)               
+   }
+   });
+   }
+}
+
+
+
+---------------------------
+
+//	 POST method - negative 
+
+
+pm.test("Create OTC trade ASK - price - Status code is 500", function () {
+    pm.response.to.have.status(500);
+});
+
+pm.test("errorMessage is shown correctly", function () {
+    pm.expect(pm.response.json().errorMessage).to.include("{{param}} value is not positive");
+});
+
+
+
+
+
+
+
+
