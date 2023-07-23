@@ -1,0 +1,228 @@
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.selector.ByAttribute;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.checkerframework.checker.units.qual.C;
+import org.junit.Assert;
+import org.junit.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.security.Key;
+import java.time.Duration;
+import java.util.List;
+
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertEquals;
+
+
+public class TestAutomation {
+
+
+
+    @Test
+    public void test() {
+
+//
+//        WebDriver driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        driver.get("https://www.jobs.ge/");
+//
+//        By select = By.name("jid");
+//        driver.findElement(select).click();
+//        Select selecetelment = new Select(driver.findElement(select));
+//        selecetelment.selectByVisibleText("სხვა");
+//        WebElement wait = new WebDriverWait(driver, Duration.ofSeconds(10)).
+
+
+//        WebDriverManager.chromedriver().setup();
+//        Selenide.open("https://www.jobs.ge/");
+//        $(By.name("jid")).pressEnter();
+//        $(byAttribute("1", "ვაკანსიები")).pressEnter();
+//        $(byXpath("//*[@id=\"searchform\"]/div/div[2]/div[3]/select/option[4]")).click();
+//        sleep(5000);
+
+
+    }
+
+    @Test
+
+    public void test2() {
+
+//        ჩეკ ბოქსის დაკლიკვა
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.jobs.ge/");
+
+        By checkBox = By.name("is_ge");
+        driver.findElement(checkBox).click();
+        sleep(5000);
+       driver.quit();
+
+        }
+
+            @Test
+
+        public void test3(){
+
+//        ინფუთში ტექსტის ჩაწერა და მოძებნა
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.jobs.ge/");
+
+        By serchBox = By.xpath("//*[@id=\"searchform\"]/div/div[1]/input");
+        driver.findElement(serchBox).sendKeys("QA");
+        driver.findElement(serchBox).sendKeys(Keys.ENTER);
+
+        By clicktext = byText("უმცროსი QA ტესტერი");
+        driver.findElement(clicktext).sendKeys(Keys.ENTER);
+        sleep(5000);
+        driver.quit();
+
+
+
+
+        }
+
+        @Test
+        public  void  test4(){
+
+//      დროპდაუნში ელემენტების მონიშვნა და დათვლა -
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.domino.com.ge/");
+
+        By element = byId("account_info_3786");
+//        WebElement element = driver.findElement(byId("ty-dropdown-box__title cm-combination"));
+        driver.findElement(element).click();
+
+        By text = byLinkText("შეკვეთები");
+        driver.findElement(text).click();
+
+        By cklickText = byId("sw_s_47368e4d8ea08c81bb324db151e3c116");
+        driver.findElement(cklickText).click();
+
+        By input = byClassName("ty-control-group__price");
+        driver.findElement(input).sendKeys("130");
+        By input2 = byName("total_sec_to");
+        driver.findElement(input2).sendKeys("200");
+        driver.findElement(input2).clear();
+        driver.findElement(input2).sendKeys("250");
+
+           By dropdown2 = byId("period_selects");
+           driver.findElement(dropdown2).click();
+
+           WebElement dropdownsize = driver.findElement(dropdown2);
+           Select dropdownsize2 = new Select(dropdownsize);
+           List <WebElement> option = dropdownsize2.getOptions();
+           int numoptions = option.size();
+           System.out.println("size elements " + numoptions);
+
+            for(int i = 0; i < numoptions; i ++){
+              dropdownsize2.selectByIndex(i);
+            }
+            String selectptionaltext = dropdownsize2.getFirstSelectedOption().getText();
+            System.out.println("select option " + selectptionaltext);
+
+            By clickChekbox = byText("მუშავდება");
+            driver.findElement(clickChekbox).click();
+
+            By clickSearch = byName("dispatch[orders.search]");
+            driver.findElement(clickSearch).click();
+
+            sleep(5000);
+            driver.quit();
+
+        }
+
+        @Test
+        public  void test5(){
+
+//        დროფდაუნში ელემენტების დათვლა და ტექსტის დაპრინტვა
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.domino.com.ge/orders/");
+
+        By firstDrop = byId("account_info_3786");
+        driver.findElement(firstDrop).click();
+
+        By cklickText = byLinkText("შეკვეთები");
+        driver.findElement(cklickText).click();
+        By secondDrop = byId("sw_s_47368e4d8ea08c81bb324db151e3c116");
+        driver.findElement(secondDrop).click();
+
+        By drop = byId("period_selects");
+        driver.findElement(drop).click();
+
+        WebElement secletelement = driver.findElement(drop);
+        Select selectAllElement = new  Select(secletelement);
+        List <WebElement> array = selectAllElement.getOptions();
+        int count = array.size();
+            System.out.println(count);
+
+
+           for (int i = 0; i < count; i ++){
+               String text = array.get(i).getText();
+               System.out.println(text);
+           }
+
+           sleep(5000);
+           driver.quit();
+
+    }
+
+    @Test
+        public void test6(){
+
+//        დროფდაუნებში ყველა ელემტის დაკლიკვა
+
+            WebDriver driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.get("https://www.domino.com.ge/");
+
+            By firstDrop = byId("account_info_3786");
+            driver.findElement(firstDrop).click();
+
+            By cklickText = byLinkText("შეკვეთები");
+            driver.findElement(cklickText).click();
+            By secondDrop = byId("sw_s_47368e4d8ea08c81bb324db151e3c116");
+            driver.findElement(secondDrop).click();
+
+            By drop = byId("period_selects");
+            driver.findElement(drop).click();
+            Select select = new Select(driver.findElement(drop));
+            select.selectByVisibleText("დღეს");
+            select.selectByVisibleText("მიმდინარე კვირა");
+            select.selectByVisibleText("მიმდინარე თვე");
+            select.selectByVisibleText("მიმდინარე წელი");
+
+            WebElement element = driver.findElement(drop);
+            Select selectt = new Select(element);
+            List <WebElement> string = selectt.getOptions();
+
+
+
+
+
+            sleep(5000);
+            driver.quit();
+
+
+
+
+        }
+
+
+
+
+
+}
+
+
+
+
